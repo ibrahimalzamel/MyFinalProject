@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.DataResults;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -21,14 +23,15 @@ namespace Business.Concrete
 
         public IResult Add(Product product)
         {
-
+            // business codes
             if (product.ProductName.Length<2)
             {
-                return new ErrorResult("Ürün isim en az 2 karakter olmalıdır");
+                //magic strings
+                return new ErrorResult(Messages.ProductNameInvalid);
             }
             _ProductDal.Add(product);
 
-            return new SuccessResult("Ürün Eklendi");
+            return new SuccessResult(Messages.ProductAdded);
         }
 
         public IResult Delete(Product product)
@@ -45,15 +48,17 @@ namespace Business.Concrete
         }
 
         // List<Product> _products; 
-        public List<Product> GetAll()
+        public IDataResult<List<Product>> GetAll()
         {
 
-            // İş Kodları
-            // Yetkisi var mi ? 
-            return _ProductDal.GetAll();
+            if (DateTime.Now.Hour==22)
+            {
+                return new ErrorDataResult();
+            }
+            return new SuccessDataResult<List<Product>>( _ProductDal.GetAll(), true,Messages.Product);
         }
 
-        public List<Product> GetAllByCategoryId(int Id)
+        public IDataResult<List<Product>> GetAllByCategoryId(int Id)
         {
             return _ProductDal.GetAll(p => p.CategoryID == Id);
         }
@@ -64,12 +69,12 @@ namespace Business.Concrete
 
         }
 
-        public List<Product> GetByUnitPrice(decimal min, decimal max)
+        public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
             return _ProductDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
         }
 
-        public List<ProductDetailDto> GetProductDetailDtos()
+        public IDataResult<List<ProductDetailDto>> GetProductDetailDtos()
         {
             return _ProductDal.GetProductDetailDtos();
         }
