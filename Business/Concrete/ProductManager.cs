@@ -50,33 +50,43 @@ namespace Business.Concrete
         // List<Product> _products; 
         public IDataResult<List<Product>> GetAll()
         {
+            var t =Convert.ToInt32( DateTime.Now.Hour);
+            Console.WriteLine(t);
 
-            if (DateTime.Now.Hour==22)
+            if (t==19)
             {
-                return new ErrorDataResult();
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<Product>>( _ProductDal.GetAll(), true,Messages.Product);
+        
+            return new SuccessDataResult<List<Product>>(_ProductDal.GetAll(), Messages.ProductListed);
+         
         }
 
         public IDataResult<List<Product>> GetAllByCategoryId(int Id)
         {
-            return _ProductDal.GetAll(p => p.CategoryID == Id);
+            return new SuccessDataResult<List<Product>>(_ProductDal.GetAll(p => p.CategoryID == Id),Messages.ProductListed);
         }
 
-        public Product GetById(int productId)
+        public IDataResult<Product> GetById(int productId)
         {
-            return _ProductDal.Get(p => p.ProductID == productId);
+            return new SuccessDataResult<Product>(_ProductDal.Get(p => p.ProductID == productId));
 
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
-            return _ProductDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
+            return new SuccessDataResult <List<Product>>(_ProductDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max),Messages.ProductListed);
         }
 
         public IDataResult<List<ProductDetailDto>> GetProductDetailDtos()
         {
-            return _ProductDal.GetProductDetailDtos();
+            if (DateTime.Now.Hour==4)
+            {
+                return new ErrorDataResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
+
+            }
+
+            return new SuccessDataResult<List<ProductDetailDto>>( _ProductDal.GetProductDetailDtos());
         }
 
        
