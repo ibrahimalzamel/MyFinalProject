@@ -1,4 +1,4 @@
-﻿using Entities.Abstract;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +9,8 @@ namespace Entities.Concrete
     {
 
         //Çıplak Class Kalmasın
-        public int CatrgoryId { get; set; }
+        public int CategoryID { get; set; }
         public string  CategoryName { get; set; }
+
     }
 }
