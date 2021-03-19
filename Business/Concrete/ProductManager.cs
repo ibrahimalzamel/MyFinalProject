@@ -50,10 +50,10 @@ namespace Business.Concrete
         // List<Product> _products; 
         public IDataResult<List<Product>> GetAll()
         {
-            var t =Convert.ToInt32( DateTime.Now.Hour);
-            Console.WriteLine(t);
+            var t =DateTime.Now.Hour;
+           
 
-            if (t==19)
+            if (t==10)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }

@@ -13,9 +13,7 @@ namespace ConsoleUI
         public  void OrderTest()
         {
             OrderManager orderManager = new OrderManager(new EfOrderDal());
-
-         
-            foreach (var order in orderManager.GetAll())
+            foreach (var order in orderManager.GetAll().Data)
             {
                 Console.WriteLine("CustomerID : " + order.CustomerID);
                 Console.WriteLine("EmployeeID : " + order.EmployeeID);
@@ -23,11 +21,8 @@ namespace ConsoleUI
                 Console.WriteLine("ShipCity : " + order.ShipCity);
                 Console.WriteLine("OrderDate : " + order.OrderDate);
                 Console.WriteLine("---------------------------");
-
-
-
             }
-            foreach (var order in orderManager.GetOrdersDetailDtos())
+            foreach (var order in orderManager.GetOrdersDetailDtos().Data)
             {
                 Console.WriteLine("CompanyName : " + order.CompanyName + " \t " + "ContactName : " + order.ContactName);
                 Console.WriteLine("---------------------------");
@@ -37,7 +32,7 @@ namespace ConsoleUI
         public void CategoryTest()
         {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-            foreach (var category in categoryManager.GetAll())
+            foreach (var category in categoryManager.GetAll().Data)
             {
                 Console.WriteLine(category.CategoryName);
             }
@@ -142,17 +137,18 @@ namespace ConsoleUI
 
         }
         //customer
-        public  void CustomerTest()
+        //********************** SonarQube ********************
+        public void CustomerTest()
         {
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
-            //foreach (var customer in customerManager.GetAll())
-            //{
-            //    Console.WriteLine("CustomerID : " + customer.CustomerID);
-            //    Console.WriteLine("CompanyName : " + customer.CompanyName);
-            //    Console.WriteLine("ContactName : " + customer.ContactName);
-            //    Console.WriteLine("City : " + customer.City);
-            //}
-            Customer customer1 =customerManager.GetById("TRAIH");
+            foreach (var customer in customerManager.GetAll().Data)
+            {
+                Console.WriteLine("CustomerID : " + customer.CustomerID);
+                Console.WriteLine("CompanyName : " + customer.CompanyName);
+                Console.WriteLine("ContactName : " + customer.ContactName);
+                Console.WriteLine("City : " + customer.City);
+            }
+            Customer customer1 =customerManager.GetById("TRAIH").Data;
             Console.WriteLine(customer1.CompanyName);
             Console.WriteLine(customer1.ContactName);
             Console.WriteLine(customer1.City);

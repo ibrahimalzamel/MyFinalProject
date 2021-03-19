@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.DataResults;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -17,19 +18,19 @@ namespace Business.Concrete
             _OrderDal = orderDal;
         }
 
-        public List<Order> GetAll()
+        public IDataResult<List<Order>> GetAll()
         {
-            return _OrderDal.GetAll();
+            return new SuccessDataResult<List<Order>>( _OrderDal.GetAll());
         }
 
-        public Order GetById(int orderId)
+        public IDataResult<Order> GetById(int orderId)
         {
-            return _OrderDal.Get(o => o.OrderID == orderId);
+            return new SuccessDataResult<Order>( _OrderDal.Get(o => o.OrderID == orderId));
         }
 
-        public List<OrderDetailDto> GetOrdersDetailDtos()
+        public IDataResult<List<OrderDetailDto>> GetOrdersDetailDtos()
         {
-            return _OrderDal.GetOrdersDetailDtos();
+            return new SuccessDataResult<List<OrderDetailDto>>( _OrderDal.GetOrdersDetailDtos());
         }
     }
 }
