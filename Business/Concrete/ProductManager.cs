@@ -31,20 +31,20 @@ namespace Business.Concrete
             }
             _ProductDal.Add(product);
 
-            return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(true,Messages.ProductAdded);
         }
 
         public IResult Delete(Product product)
         {
             _ProductDal.Delete(product);
 
-            return new Result(true);
+            return new SuccessResult(true,SuccessMessages.ProductDeleted);
 
         }
         public IResult Update(Product product)
         {
             _ProductDal.Update(product);
-            return new Result(true);
+            return new SuccessResult(true,SuccessMessages.ProductUpdated);
         }
 
         // List<Product> _products; 
@@ -69,24 +69,24 @@ namespace Business.Concrete
 
         public IDataResult<Product> GetById(int productId)
         {
-            return new SuccessDataResult<Product>(_ProductDal.Get(p => p.ProductID == productId));
+            return new SuccessDataResult<Product>(_ProductDal.Get(p => p.ProductID == productId),SuccessMessages.ProductListed);
 
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
-            return new SuccessDataResult <List<Product>>(_ProductDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max),Messages.ProductListed);
+            return new SuccessDataResult <List<Product>>(_ProductDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max), SuccessMessages.ProductListed);
         }
 
         public IDataResult<List<ProductDetailDto>> GetProductDetailDtos()
         {
             if (DateTime.Now.Hour==4)
             {
-                return new ErrorDataResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
+                return new ErrorDataResult<List<ProductDetailDto>>(ErrorMessages.MaintenanceTime1);
 
             }
 
-            return new SuccessDataResult<List<ProductDetailDto>>( _ProductDal.GetProductDetailDtos());
+            return new SuccessDataResult<List<ProductDetailDto>>( _ProductDal.GetProductDetailDtos(),SuccessMessages.ProductListed);
         }
 
        
