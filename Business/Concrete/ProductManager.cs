@@ -53,7 +53,7 @@ namespace Business.Concrete
             var t =DateTime.Now.Hour;
            
 
-            if (t==10)
+            if (t==19)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
