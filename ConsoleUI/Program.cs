@@ -11,9 +11,9 @@ namespace ConsoleUI
         {
             Start start = new Start();
             start.ProductTest();
-            //start.OrderTest(); //
-            // start.CustomerTest();
-            //start.CategoryTest();
+            start.OrderTest(); 
+            start.CustomerTest();
+            start.CategoryTest();
         }
     }
 }

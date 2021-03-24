@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         public IDataResult< List<Category>> GetAll()
         {
-            return new SuccessDataResult<List<Category>>(Messages.ProductAdded);
+            return new SuccessDataResult<List<Category>>( _categoryDal.GetAll(),Messages.ProductAdded);
         }
         // Select * from Categories where Category = 3 ; 
         public IDataResult<Category> GetById(int categoryId)
