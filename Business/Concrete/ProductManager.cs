@@ -1,11 +1,15 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.DataResults;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,15 +24,14 @@ namespace Business.Concrete
         {
             _ProductDal = productDal;
         }
-
+       [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            // business codes
-            if (product.ProductName.Length<2)
-            {
-                //magic strings
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
+            //Loglama
+            //Cacheremove
+            //performance
+            //transsaction
+            //
             _ProductDal.Add(product);
 
             return new SuccessResult(true,Messages.ProductAdded);
@@ -47,7 +50,6 @@ namespace Business.Concrete
             return new SuccessResult(true,SuccessMessages.ProductUpdated);
         }
 
-        // List<Product> _products; 
         public IDataResult<List<Product>> GetAll()
         {
             var t =DateTime.Now.Hour;
