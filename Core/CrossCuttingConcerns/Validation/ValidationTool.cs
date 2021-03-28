@@ -19,5 +19,5 @@ namespace Core.CrossCuttingConcerns.Validation
             }
         }
     
-}
+    }
 }
