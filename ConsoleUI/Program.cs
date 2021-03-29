@@ -10,7 +10,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             Start start = new Start();
-            start.ProductTest();
+            //start.ProductTest();
             start.OrderTest(); 
             start.CustomerTest();
             start.CategoryTest();
