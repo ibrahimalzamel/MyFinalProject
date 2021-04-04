@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 using System.Linq;
@@ -62,6 +61,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
             {
                 _memoryCache.Remove(key);
             }
+            // son saat 15,derstyiz 
         }
     }
 }
