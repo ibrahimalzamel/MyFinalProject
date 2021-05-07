@@ -31,7 +31,7 @@ namespace Business.Concrete
 
         //salting
         //Claim
-        [SecuredOperation("product.add,admin")]
+     //  [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
@@ -62,11 +62,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetAll()
         {
-            var t =DateTime.Now.Hour;
-            if (t==19)
-            {
-                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
-            }        
+                  
             return new SuccessDataResult<List<Product>>(_ProductDal.GetAll(), Messages.ProductListed);       
         }
 
@@ -121,5 +117,7 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
+
+       
     }
 }
